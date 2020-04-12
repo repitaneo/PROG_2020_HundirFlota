@@ -10,7 +10,7 @@ public class Juego {
 	
 	private String[][] panel;
 	
-	
+	private Barco[] barcos; 
 	
 	
 	/**
@@ -27,6 +27,10 @@ public class Juego {
 				panel[i][j] = "+";
 			}
 		}
+		
+		// creamos espacio para los barcos
+		barcos = new Barco[7];
+
 	}
 	
 	
@@ -47,6 +51,20 @@ public class Juego {
 			System.out.println();
 		}
 	}
+	
+
+	
+	
+	
+	public void pintarBarcos() {
+		
+		for(int i=0;i<7;i++) {
+			
+			System.out.println(barcos[i]);
+		}
+	}	
+	
+	
 	
 	
 	
@@ -82,6 +100,16 @@ public class Juego {
 			panel[f][c+3] = "P";
 		}
 
+		
+		// este barco lo coloco en la posicion 0 de los barcos
+		// los portaviones siempre van ahí
+		Barco barco = new Barco();
+		barco.setFila(f);
+		barco.setColumna(c);
+		barco.setOrientacion(orientacion);
+		barco.setTipo("P");
+		
+		barcos[0] = barco;
 	}
 	
 	
@@ -116,6 +144,17 @@ public class Juego {
 			panel[f][c+1] = "A";
 			panel[f][c+2] = "A";
 		}
+		
+		
+		// este barco lo coloco en la posicion 1 de los barcos
+		// los acorazados siempre van ahí
+		Barco barco = new Barco();
+		barco.setFila(f);
+		barco.setColumna(c);
+		barco.setOrientacion(orientacion);
+		barco.setTipo("A");
+		
+		barcos[1] = barco;		
 
 	}	
 	
@@ -153,6 +192,17 @@ public class Juego {
 			panel[f][c+2] = "S";
 		}
 
+		
+		
+		// este barco lo coloco en la posicion 2 de los barcos
+		// los submarinos siempre van ahí
+		Barco barco = new Barco();
+		barco.setFila(f);
+		barco.setColumna(c);
+		barco.setOrientacion(orientacion);
+		barco.setTipo("S");
+		
+		barcos[2] = barco;	
 	}	
 	
 	
@@ -184,6 +234,24 @@ public class Juego {
 			panel[f][c] = "D";
 			panel[f][c+1] = "D";
 		}
+		
+		
+		
+		// este barco lo coloco en la posicion 3 o 4 de los barcos
+		// los destructores siempre van ahí
+		Barco barco = new Barco();
+		barco.setFila(f);
+		barco.setColumna(c);
+		barco.setOrientacion(orientacion);
+		barco.setTipo("D");
+		
+		// si no hay ningun barco en esa carilla habrá NULL
+		if(barcos[3]==null) {
+			
+			barcos[3] = barco;
+		}
+		// y si hay un barco entonces es que va en la 4
+		else barcos[4] = barco;
 
 	}		
 	
@@ -213,6 +281,23 @@ public class Juego {
 			panel[f][c] = "L";
 		}
 
+		// este barco lo coloco en la posicion 3 o 4 de los barcos
+		// los destructores siempre van ahí
+		Barco barco = new Barco();
+		barco.setFila(f);
+		barco.setColumna(c);
+		barco.setOrientacion(0);
+		barco.setTipo("L");
+		
+		// si no hay ningun barco en esa casilla habrá NULL
+		if(barcos[5]==null) {
+			
+			barcos[5] = barco;
+		}
+		// y si hay un barco entonces es que va en la 6
+		else barcos[6] = barco;
+		
+		
 	}		
 	
 }

@@ -22,7 +22,8 @@ public class Start {
 		juego.setLancha(6, 1);
 		juego.setLancha(0, 5);
 		
-		juego.pintarPanel();
+		
+		juego.pintarBarcos();
 		
 
 	}
