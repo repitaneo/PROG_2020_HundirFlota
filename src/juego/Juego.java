@@ -2,7 +2,7 @@ package juego;
 
 public class Juego {
 
-	private final int FILAS_COLUMNAS = 10;
+	public static final int FILAS_COLUMNAS = 10;
 	
 	public static final int ORIENTACION_VERTICAL = 100;
 	public static final int ORIENTACION_HORIZONTAL = 200;
@@ -14,8 +14,18 @@ public class Juego {
 	public static final char BARCOS_DESTRUCTOR = 'D';
 	public static final char BARCOS_LANCHA = 'L';
 	
+
+	public static final int DISPARO_AGUA = -1;
+	public static final int DISPARO_TOCADO = 0;
+	public static final int DISPARO_HUNDIDO_PORTAVIONES = 1;
+	public static final int DISPARO_HUNDIDO_ACORAZADO = 2;
+	public static final int DISPARO_HUNDIDO_SUBMARINO = 3;
+	public static final int DISPARO_HUNDIDO_DESTRUCTOR = 4;
+	public static final int DISPARO_HUNDIDO_LANCHA = 5;
+	public static final int DISPARO_HUNDIDO_TODOS = 10;
 	
-	private String[][] panel;
+	
+	private char[][] panel;
 	
 	private Barco[] barcos; 
 	
@@ -25,13 +35,13 @@ public class Juego {
 	 */
 	public Juego() {
 		
-		panel = new String[FILAS_COLUMNAS][FILAS_COLUMNAS];
+		panel = new char[FILAS_COLUMNAS][FILAS_COLUMNAS];
 		
 		for(int i=0;i<FILAS_COLUMNAS;i++) {
 			
 			for(int j=0;j<FILAS_COLUMNAS;j++) {
 				
-				panel[i][j] = "+";
+				panel[i][j] = '+';
 			}
 		}
 		
@@ -94,14 +104,14 @@ public class Juego {
 		if((f<=FILAS_COLUMNAS-longitudBarco)&&(orientacion==ORIENTACION_VERTICAL)) {
 			
 			for(int i=0;i<longitudBarco;i++) {
-				panel[f+i][c] = ""+tipoBarco;
+				panel[f+i][c] = tipoBarco;
 			}
 		}
 		// idem: pregunto si cabe en HORIZONTAL y si eso lo coloco
 		else if((c<=FILAS_COLUMNAS-longitudBarco)&&(orientacion==ORIENTACION_HORIZONTAL)) {
 			
 			for(int i=0;i<longitudBarco;i++) {
-				panel[f][c+i] = ""+tipoBarco;
+				panel[f][c+i] = tipoBarco;
 			}
 		}
 
@@ -123,6 +133,31 @@ public class Juego {
 			case 'L': if(barcos[5]==null) barcos[5]=barco; else barcos[6]=barco; break; 
 		}
 	}	
+	
+	
+	
+	
+	public int disparo(Tirada tirada) {
+		
+		int fila = tirada.getFila();
+		int columna = tirada.getColumna();
+		
+		
+		char habia = panel[fila][columna];
+				
+		if(habia=='+') {
+			
+			return this.DISPARO_AGUA;
+		}
+		else  {
+			
+			panel[fila][columna] = '#';
+			return this.DISPARO_TOCADO;
+		}
+	}
+	
+	
+	
 	
 
 }

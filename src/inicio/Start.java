@@ -1,6 +1,8 @@
 package inicio;
 
+import juego.Contrincante;
 import juego.Juego;
+import juego.Tirada;
 
 public class Start {
 
@@ -22,10 +24,24 @@ public class Start {
 		juego.setBarco(6,1,0,Juego.BARCOS_LANCHA);
 		juego.setBarco(0,5,0,Juego.BARCOS_LANCHA);
 		
+		Contrincante enemigo = new Contrincante();
+
+		int veces = 0;
+		
+		int resultadoDisparo = Juego.DISPARO_AGUA;
+		while(resultadoDisparo==Juego.DISPARO_AGUA) {
+		
+			Tirada tirada = enemigo.nuevoIntento();
+			resultadoDisparo = juego.disparo(tirada);
+			veces++;
+		}
 		
 		juego.pintarPanel();
-		juego.pintarBarcos();
+		System.out.println(veces);
+
+
 		
+
 
 	}
 
