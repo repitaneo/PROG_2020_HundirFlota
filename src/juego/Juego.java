@@ -8,6 +8,13 @@ public class Juego {
 	public static final int ORIENTACION_HORIZONTAL = 200;
 	
 	
+	public static final char BARCOS_PORTAVIONES = 'P';
+	public static final char BARCOS_ACORAZADO = 'A';
+	public static final char BARCOS_SUBMARINO = 'S';
+	public static final char BARCOS_DESTRUCTOR = 'D';
+	public static final char BARCOS_LANCHA = 'L';
+	
+	
 	private String[][] panel;
 	
 	private Barco[] barcos; 
@@ -65,39 +72,37 @@ public class Juego {
 	}	
 	
 	
+
 	
 	
 	
 	
-	/**
-	 * este algoritmo SIEMPRE coloca los portaviones hacia la derecha o hacia abajo
-	 * 
-	 * Eso lo hemos decidido nosotros y como no había nada en el enunciado en contra no 
-	 * puede estar mal ya que lo estamos justificando en el código.
-	 * 
-	 * 
-	 * @param f fila de inicio del poprtaviones
-	 * @param c columna de inicio del portaviones
-	 * @param orientacion HORIZONTAL o VERTICAL
-	 */
-	public void setPortaviones(int f,int c, int orientacion) {
+	public void setBarco(int f,int c, int orientacion,char tipoBarco) {
+		
+		int longitudBarco = 0;
+		switch(tipoBarco) {
+			
+			case 'P': longitudBarco=4; break; 
+			case 'A': longitudBarco=3; break; 
+			case 'S': longitudBarco=3; break; 
+			case 'D': longitudBarco=2; break; 
+			case 'L': longitudBarco=1; break; 
+			
+		}
 		
 		// pregunto si me sabe sin salirme del panel
-		if((f<=FILAS_COLUMNAS-4)&&(orientacion==ORIENTACION_VERTICAL)) {
+		if((f<=FILAS_COLUMNAS-longitudBarco)&&(orientacion==ORIENTACION_VERTICAL)) {
 			
-			// si me cabe lo coloco
-			panel[f][c] = "P";
-			panel[f+1][c] = "P";
-			panel[f+2][c] = "P";
-			panel[f+3][c] = "P";
+			for(int i=0;i<longitudBarco;i++) {
+				panel[f+i][c] = ""+tipoBarco;
+			}
 		}
 		// idem: pregunto si cabe en HORIZONTAL y si eso lo coloco
-		else if((c<=FILAS_COLUMNAS-4)&&(orientacion==ORIENTACION_HORIZONTAL)) {
+		else if((c<=FILAS_COLUMNAS-longitudBarco)&&(orientacion==ORIENTACION_HORIZONTAL)) {
 			
-			panel[f][c] = "P";
-			panel[f][c+1] = "P";
-			panel[f][c+2] = "P";
-			panel[f][c+3] = "P";
+			for(int i=0;i<longitudBarco;i++) {
+				panel[f][c+i] = ""+tipoBarco;
+			}
 		}
 
 		
@@ -107,197 +112,17 @@ public class Juego {
 		barco.setFila(f);
 		barco.setColumna(c);
 		barco.setOrientacion(orientacion);
-		barco.setTipo("P");
+		barco.setTipo(""+tipoBarco);
 		
-		barcos[0] = barco;
-	}
-	
-	
-	
-
-	
-	/**
-	 * este algoritmo SIEMPRE coloca el ACORAZADO hacia la derecha o hacia abajo
-	 * 
-	 * Eso lo hemos decidido nosotros y como no había nada en el enunciado en contra no 
-	 * puede estar mal ya que lo estamos justificando en el código.
-	 * 
-	 * 
-	 * @param f fila de inicio del ACORAZADO
-	 * @param c columna de inicio del ACORAZADO
-	 * @param orientacion HORIZONTAL o VERTICAL
-	 */
-	public void setAcorazado(int f,int c, int orientacion) {
+		switch(tipoBarco) {
 		
-		// pregunto si me sabe sin salirme del panel
-		if((f<=FILAS_COLUMNAS-3)&&(orientacion==ORIENTACION_VERTICAL)) {
-			
-			// si me cabe lo coloco
-			panel[f][c] = "A";
-			panel[f+1][c] = "A";
-			panel[f+2][c] = "A";
+			case 'P': barcos[0]=barco; break; 
+			case 'A': barcos[1]=barco; break; 
+			case 'S': barcos[2]=barco; break; 
+			case 'D': if(barcos[3]==null) barcos[3]=barco; else barcos[4]=barco; break; 
+			case 'L': if(barcos[5]==null) barcos[5]=barco; else barcos[6]=barco; break; 
 		}
-		// idem: pregunto si cabe en HORIZONTAL y si eso lo coloco
-		else if((c<=FILAS_COLUMNAS-3)&&(orientacion==ORIENTACION_HORIZONTAL)) {
-			
-			panel[f][c] = "A";
-			panel[f][c+1] = "A";
-			panel[f][c+2] = "A";
-		}
-		
-		
-		// este barco lo coloco en la posicion 1 de los barcos
-		// los acorazados siempre van ahí
-		Barco barco = new Barco();
-		barco.setFila(f);
-		barco.setColumna(c);
-		barco.setOrientacion(orientacion);
-		barco.setTipo("A");
-		
-		barcos[1] = barco;		
-
 	}	
 	
 
-	
-	
-
-	
-	/**
-	 * este algoritmo SIEMPRE coloca el SUBMARINO hacia la derecha o hacia abajo
-	 * 
-	 * Eso lo hemos decidido nosotros y como no había nada en el enunciado en contra no 
-	 * puede estar mal ya que lo estamos justificando en el código.
-	 * 
-	 * 
-	 * @param f fila de inicio del SUBMARINO
-	 * @param c columna de inicio del SUBMARINO
-	 * @param orientacion HORIZONTAL o VERTICAL
-	 */
-	public void setSubmarino(int f,int c, int orientacion) {
-		
-		// pregunto si me sabe sin salirme del panel
-		if((f<=FILAS_COLUMNAS-3)&&(orientacion==ORIENTACION_VERTICAL)) {
-			
-			// si me cabe lo coloco
-			panel[f][c] = "S";
-			panel[f+1][c] = "S";
-			panel[f+2][c] = "S";
-		}
-		// idem: pregunto si cabe en HORIZONTAL y si eso lo coloco
-		else if((c<=FILAS_COLUMNAS-3)&&(orientacion==ORIENTACION_HORIZONTAL)) {
-			
-			panel[f][c] = "S";
-			panel[f][c+1] = "S";
-			panel[f][c+2] = "S";
-		}
-
-		
-		
-		// este barco lo coloco en la posicion 2 de los barcos
-		// los submarinos siempre van ahí
-		Barco barco = new Barco();
-		barco.setFila(f);
-		barco.setColumna(c);
-		barco.setOrientacion(orientacion);
-		barco.setTipo("S");
-		
-		barcos[2] = barco;	
-	}	
-	
-	
-
-	
-	/**
-	 * este algoritmo SIEMPRE coloca el DESTRUCTOR hacia la derecha o hacia abajo
-	 * 
-	 * Eso lo hemos decidido nosotros y como no había nada en el enunciado en contra no 
-	 * puede estar mal ya que lo estamos justificando en el código.
-	 * 
-	 * 
-	 * @param f fila de inicio del DESTRUCTOR
-	 * @param c columna de inicio del DESTRUCTOR
-	 * @param orientacion HORIZONTAL o VERTICAL
-	 */
-	public void setDestructor(int f,int c, int orientacion) {
-		
-		// pregunto si me sabe sin salirme del panel
-		if((f<=FILAS_COLUMNAS-2)&&(orientacion==ORIENTACION_VERTICAL)) {
-			
-			// si me cabe lo coloco
-			panel[f][c] = "D";
-			panel[f+1][c] = "D";
-		}
-		// idem: pregunto si cabe en HORIZONTAL y si eso lo coloco
-		else if((c<=FILAS_COLUMNAS-2)&&(orientacion==ORIENTACION_HORIZONTAL)) {
-			
-			panel[f][c] = "D";
-			panel[f][c+1] = "D";
-		}
-		
-		
-		
-		// este barco lo coloco en la posicion 3 o 4 de los barcos
-		// los destructores siempre van ahí
-		Barco barco = new Barco();
-		barco.setFila(f);
-		barco.setColumna(c);
-		barco.setOrientacion(orientacion);
-		barco.setTipo("D");
-		
-		// si no hay ningun barco en esa carilla habrá NULL
-		if(barcos[3]==null) {
-			
-			barcos[3] = barco;
-		}
-		// y si hay un barco entonces es que va en la 4
-		else barcos[4] = barco;
-
-	}		
-	
-	
-	
-	
-	
-
-	
-	/**
-	 * este algoritmo SIEMPRE coloca la LANCHA hacia la derecha o hacia abajo
-	 * 
-	 * Eso lo hemos decidido nosotros y como no había nada en el enunciado en contra no 
-	 * puede estar mal ya que lo estamos justificando en el código.
-	 * 
-	 * 
-	 * @param f fila de inicio de la LANCHA
-	 * @param c columna de inicio de la LANCHA
-	 * @param orientacion HORIZONTAL o VERTICAL
-	 */
-	public void setLancha(int f,int c) {
-		
-		// pregunto si me sabe sin salirme del panel
-		if((f<=FILAS_COLUMNAS-1)&&(c<=FILAS_COLUMNAS-1)) {
-			
-			// si me cabe lo coloco
-			panel[f][c] = "L";
-		}
-
-		// este barco lo coloco en la posicion 3 o 4 de los barcos
-		// los destructores siempre van ahí
-		Barco barco = new Barco();
-		barco.setFila(f);
-		barco.setColumna(c);
-		barco.setOrientacion(0);
-		barco.setTipo("L");
-		
-		// si no hay ningun barco en esa casilla habrá NULL
-		if(barcos[5]==null) {
-			
-			barcos[5] = barco;
-		}
-		// y si hay un barco entonces es que va en la 6
-		else barcos[6] = barco;
-		
-		
-	}		
-	
 }

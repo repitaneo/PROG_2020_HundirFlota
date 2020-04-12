@@ -9,20 +9,21 @@ public class Start {
 
 		Juego juego = new Juego();
 		
-		juego.setPortaviones(2, 2, Juego.ORIENTACION_HORIZONTAL);
+		juego.setBarco(2,2,Juego.ORIENTACION_HORIZONTAL,Juego.BARCOS_PORTAVIONES);
 		
-		juego.setAcorazado(0, 0, Juego.ORIENTACION_HORIZONTAL);
+		juego.setBarco(0,0,Juego.ORIENTACION_HORIZONTAL,Juego.BARCOS_ACORAZADO);
 		
-		juego.setSubmarino(5, 4, Juego.ORIENTACION_VERTICAL);
-		
-		
-		juego.setDestructor(4, 6, Juego.ORIENTACION_VERTICAL);
-		juego.setDestructor(2, 0, Juego.ORIENTACION_VERTICAL);
-		
-		juego.setLancha(6, 1);
-		juego.setLancha(0, 5);
+		juego.setBarco(5,4,Juego.ORIENTACION_VERTICAL,Juego.BARCOS_SUBMARINO);
 		
 		
+		juego.setBarco(4,6,Juego.ORIENTACION_VERTICAL,Juego.BARCOS_DESTRUCTOR);
+		juego.setBarco(2,0,Juego.ORIENTACION_VERTICAL,Juego.BARCOS_DESTRUCTOR);
+		
+		juego.setBarco(6,1,0,Juego.BARCOS_LANCHA);
+		juego.setBarco(0,5,0,Juego.BARCOS_LANCHA);
+		
+		
+		juego.pintarPanel();
 		juego.pintarBarcos();
 		
 
