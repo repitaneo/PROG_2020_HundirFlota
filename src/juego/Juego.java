@@ -152,8 +152,51 @@ public class Juego {
 		else  {
 			
 			panel[fila][columna] = '#';
-			return this.DISPARO_TOCADO;
+			
+			if(hundido(this.BARCOS_PORTAVIONES)) {
+				
+				return this.DISPARO_HUNDIDO_PORTAVIONES;
+			}
+			else return this.DISPARO_TOCADO;
 		}
+	}
+
+
+	
+	
+
+
+
+	private boolean hundido(char tipoBarco) {
+
+		int longitudBarco = 0;
+		Barco barco = null;
+		
+		switch(tipoBarco) {
+			
+			case 'P': longitudBarco=4; barco = barcos[0]; break; 
+		}
+		
+		
+		
+		int tocados = 0;
+		int fila = barco.getFila();
+		int columna = barco.getColumna();
+		for(int i=0;i<longitudBarco;i++) {
+			
+			if(barco.getOrientacion()==Juego.ORIENTACION_VERTICAL) {
+				
+				if(panel[fila+i][columna]=='#') tocados++;
+			}
+			else if(barco.getOrientacion()==Juego.ORIENTACION_HORIZONTAL) {
+				
+				if(panel[fila][columna+i]=='#') tocados++;
+			}
+		}
+		
+		
+		if(tocados==longitudBarco) return true;
+		else return false;
 	}
 	
 	

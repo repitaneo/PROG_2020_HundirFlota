@@ -29,7 +29,7 @@ public class Start {
 		int veces = 0;
 		
 		int resultadoDisparo = Juego.DISPARO_AGUA;
-		while(resultadoDisparo==Juego.DISPARO_AGUA) {
+		while(resultadoDisparo!=Juego.DISPARO_HUNDIDO_PORTAVIONES) {
 		
 			Tirada tirada = enemigo.nuevoIntento();
 			resultadoDisparo = juego.disparo(tirada);
